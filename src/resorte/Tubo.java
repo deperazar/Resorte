@@ -50,8 +50,11 @@ public class Tubo {
     
     public boolean checkkt(){
         double a=0.001*(Math.PI/32)*this.getmaterial().getG()*(Math.pow(this.diametro, 4)-Math.pow(this.diametro-2*this.grosor, 4))/(this.largo);//Nm
-        //redondear o aproximar a, en un rango de +-1
-        //System.out.println("Kt exp:"+a);
+        
+        //System.out.println("G: "+this.getmaterial().getG());
+
+    //redondear o aproximar a, en un rango de +-1
+        
         if(a<=this.kt+1 && this.kt-1<=a){
             return true;
         }else{
@@ -124,8 +127,10 @@ public class Tubo {
     }
     
     public boolean checkt(){//revisar que no falle
-        double a=1.1*this.material.getG()*this.diametro*this.giro/(this.largo*2);
-        if(a<=this.material.gettys()){
+        //LOS OTROS MATERIALES NO SATISFACEN SIMULTÁNEAMENTE EL COMPORTAMIENTO T VS ANG, Y FS
+        
+        double a=(1.1*this.getmaterial().getG()*this.giro/2)*this.diametro/(this.largo);
+        if(a<=this.getmaterial().gettys()){
             return true;
         }
         else{

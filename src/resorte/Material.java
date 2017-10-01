@@ -14,16 +14,16 @@ public class Material {
     static final double densidad2=2810;
     
     private String nombre;
-    private double G;//MPa
-    private double limfluencia;//MPa
-    private double tys;//MPa
-    private double esfult;//MPa
-    private double costo; //$/Kg
-    private double densidad; // Kg/m^3
+    private int G;//MPa
+    private int limfluencia;//MPa
+    private int tys;//MPa
+    private int esfult;//MPa
+    private int costo; //$/Kg
+    private int densidad; // Kg/m^3
     
     
     
-    public Material(String nombre, double G, double limfluencia, double esfult, double costo,double densidad){
+    public Material(String nombre, int G, int limfluencia, int esfult, int costo,int densidad){
         this.nombre=nombre;
         this.G=G;
         this.limfluencia=limfluencia;
@@ -41,19 +41,19 @@ public class Material {
         return this.nombre;
     } 
     
-    public double getG(){
+    public int getG(){
         return this.G;
     } 
     
-    public double getlimfluencia(){
+    public int getlimfluencia(){
         return this.limfluencia;
     }
     
-    public double getesfult(){
+    public int getesfult(){
         return this.esfult;
     }
     
-    public double getcosto(){
+    public int getcosto(){
         return this.costo;
     }
     
