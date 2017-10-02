@@ -26,6 +26,14 @@ public class Resorte {
     }
     
     
+    public static double T(double angulo){
+        double T=0;
+        if (angulo<=4) {
+                T=1;
+        }
+        return T;
+    }
+    
     public static void main(String[] args) {
         Material [] m= new Material [3];
         m[0]= new Material ("ASTM A913", 77000, 460, 550, 8000, 7850);//nombre,G,lim fluenc,esf ult,precio/kg, densidad kg/m^3
