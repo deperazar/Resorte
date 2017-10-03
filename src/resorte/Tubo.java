@@ -10,6 +10,7 @@ package resorte;
  * @author Usuario
  */
 public class Tubo {
+    
     private int Id; //numero del tubo
     private int largo;//mm
     private int grosor;//mm
@@ -20,10 +21,11 @@ public class Tubo {
     private double precio;//$
     private double kt;//pendiente para cada tubo
     private double giro;//rad
+    private double fs;//factor de seguridad
     
     
     public Tubo(int Id, int largo, int grosor,int diametro){
-        
+        this.fs=0;
         this.Id=Id;
         this.precio=0;
         switch (this.Id) {
@@ -48,13 +50,18 @@ public class Tubo {
         this.volumen=Math.PI*this.largo*(this.grosor*this.diametro-(this.grosor)*(this.grosor))*Math.pow(10, -9);
     }
     
+    public void setfs(){
+        this.fs=this.getmaterial().gettys()/((this.getmaterial().getG()*this.giro)*this.diametro/(2*this.largo));
+    }
+    
+    public double getfs(){
+        return this.fs;
+    }
+    
+    
     public boolean checkkt(){
         double a=0.001*(Math.PI/32)*this.getmaterial().getG()*(Math.pow(this.diametro, 4)-Math.pow(this.diametro-2*this.grosor, 4))/(this.largo);//Nm
-        
-        //System.out.println("G: "+this.getmaterial().getG());
 
-    //redondear o aproximar a, en un rango de +-1
-        
         if(a<=this.kt+1 && this.kt-1<=a){
             return true;
         }else{
@@ -129,7 +136,7 @@ public class Tubo {
     public boolean checkt(){//revisar que no falle
         //LOS OTROS MATERIALES NO SATISFACEN SIMULTÁNEAMENTE EL COMPORTAMIENTO T VS ANG, Y FS
         
-        double a=(1.1*this.getmaterial().getG()*this.giro/2)*this.diametro/(this.largo);
+        double a=(1.1*this.getmaterial().getG()*this.giro)*this.diametro/(2*this.largo);
         if(a<=this.getmaterial().gettys()){
             return true;
         }

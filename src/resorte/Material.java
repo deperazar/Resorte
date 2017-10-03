@@ -10,9 +10,7 @@ package resorte;
  * @author Usuario
  */
 public class Material {
-    static final double densidad1=7850;
-    static final double densidad2=2810;
-    
+
     private String nombre;
     private int G;//MPa
     private int limfluencia;//MPa
