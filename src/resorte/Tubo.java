@@ -59,7 +59,7 @@ public class Tubo {
     }
     
     
-    public boolean checkkt(){
+    public boolean check_kt(){
         double a=0.001*(Math.PI/32)*this.getmaterial().getG()*(Math.pow(this.diametro, 4)-Math.pow(this.diametro-2*this.grosor, 4))/(this.largo);//Nm
 
         if(a<=this.kt+1 && this.kt-1<=a){
@@ -77,9 +77,6 @@ public class Tubo {
     
     public double getprecio(){
         return this.precio;
-    }
-    public void setgiro(double giro){//parametro giro en grados
-        this.giro=giro*(Math.PI)/180;
     }
     
     public double getgiro(){
@@ -133,7 +130,7 @@ public class Tubo {
         this.precio=this.volumen*this.material.getdensidad()*this.material.getcosto();
     }
     
-    public boolean checkt(){//revisar que no falle
+    public boolean check_ecmax(){
         //LOS OTROS MATERIALES NO SATISFACEN SIMULTÁNEAMENTE EL COMPORTAMIENTO T VS ANG, Y FS
         
         double a=(1.1*this.getmaterial().getG()*this.giro)*this.diametro/(2*this.largo);
@@ -154,7 +151,4 @@ public class Tubo {
         return this.material;
     }
     
-    public double gettreq(){//esfuerzo requisito
-        return (1.1*this.material.getG()*this.diametro*this.giro/(this.largo*2));
-    }
 }

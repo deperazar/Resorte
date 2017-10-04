@@ -21,28 +21,18 @@ public class Resorte {
     }
     
     
-    public static double T(double angulo){
-        double T=0;
-        if (angulo<=4) {
-                T=1;
-        }
-        return T;
-    }
     
     public static void main(String[] args) {
         Material [] m= new Material [3];
         m[0]= new Material ("ASTM A913", 77000, 460, 550, 8000, 7850);//nombre,G,lim fluenc,esf ult,precio/kg, densidad kg/m^3
         m[1]= new Material ("AISI 302", 75000, 530, 860, 15000, 7850);
-        m[2]= new Material ("7075 T6", 28000, 510, 570, 24000,2810);
+        m[2]= new Material ("7075 T6", 28000, 510, 570, 24000, 2810);
         
         Tubo t1=new Tubo(1,500,3,20);//material/largo en mm/grosor/diámetro
         Tubo t2=new Tubo(2,500,3,20);//material/largo en mm/grosor/diámetro
         Tubo t3=new Tubo(3,500,3,20);//material/largo en mm/grosor/diámetro
         
-        t3.setmaterial(m[0]);
-        t3.setecmax();
-        
-        t3.setprecio();
+       
         
         double price =999999;
         int mat=0;
@@ -72,14 +62,13 @@ public class Resorte {
                     for (int g = 2; g <= D/2; g++) {
                         t1.setgrosor(g);
                         t1.setvolumen();
-                        if(t1.checkkt()){//Cumple con el KT__________BIEN
+                        if(t1.check_kt()){//Cumple con el KT?
                             
-                            if (t1.checkt()) {//Cumple factor de seguridad?_____PROBLEMA
+                            if (t1.check_ecmax()) {//Cumple factor de seguridad?
                                 
                                 t1.setprecio();   
                                 if (t1.getprecio()<price) {//Se selecciona el precio menor
                                     
-                                    t1.setvolumen(); 
                                     price=t1.getprecio();
                                     mat=i;
                                     Lar=L; 
@@ -101,29 +90,12 @@ public class Resorte {
         t1.setlargo(Lar);
         t1.setmaterial(m[mat]);
         t1.setfs();
-        /*
-        System.out.println("precio min t1: "+price);
-        System.out.println("kt: "+t1.getkt());
-        System.out.println("Material t1: "+m[mat].getnombre());
-        System.out.println("G t1: "+m[mat].getG());
-        System.out.println("L t1: "+Lar);
-        System.out.println("D t1: "+Dia);
-        System.out.println("gr t1: "+gro);
-        System.out.println("Vol t1: "+vol);
-        System.out.println("giro: "+t1.getgiro()*180/Math.PI);
-        System.out.println("tys: "+t1.getmaterial().gettys());
-        System.out.println("cortante: "+t1.gettreq()/1.1);
-        System.out.println("cortante*fs: "+t1.gettreq());
-        System.out.println("FS: "+t1.getfs());
-        System.out.println("       ");
-        */
-        
+
         mat=0;
         Lar=0;
         Dia=0;
         gro=0;
         vol=0;        
-   
         price=99999999;
         
         for (int i = 0; i < 3; i++) {
@@ -136,9 +108,10 @@ public class Resorte {
                         t2.setgrosor(g);
                         t2.setvolumen();
                         
-                        if(t2.checkkt()){//Cumple con el KT
+                        if(t2.check_kt()){//Cumple con el KT?
                             
-                            if (t2.checkt()) {//Cumple factor de seguridad
+                            
+                            if (t2.check_ecmax()) {//Cumple factor de seguridad?
                                 
                                 t2.setprecio();
                                 if (t2.getprecio()<price) {//Se selecciona el precio menor
@@ -149,8 +122,7 @@ public class Resorte {
                                     Dia=D;
                                     gro=g;
                                     vol=t2.getvolumen();
-                                    //System.out.println("hello");
-                                    //System.out.println("price:"+price);
+                                    
                                 }
                             }
                             
@@ -165,22 +137,6 @@ public class Resorte {
         t2.setlargo(Lar);
         t2.setmaterial(m[mat]);
         t2.setfs();
-        
-        /*
-        System.out.println("precio min t2: "+price);
-        System.out.println("Material t2: "+m[mat].getnombre());
-        System.out.println("G t2: "+m[mat].getG());
-        System.out.println("L t2: "+Lar);
-        System.out.println("D t2: "+Dia);
-        System.out.println("gr t2: "+gro);
-        System.out.println("Vol t2: "+vol);
-        System.out.println("giro: "+t2.getgiro()*180/Math.PI);
-        System.out.println("tys: "+t2.getmaterial().gettys());
-        System.out.println("cortante: "+t2.gettreq()/1.1);
-        System.out.println("cortante*fs: "+t2.gettreq());
-        System.out.println("FS: "+t2.getfs());
-        System.out.println("     ");
-        */
         price=9999999;
         
         
@@ -195,10 +151,10 @@ public class Resorte {
                     for (int g = 2; g <=(int) (D-t2.getdiametro())/2; g++) {
                         t3.setgrosor(g);
                         t3.setvolumen();
-                        if(t3.checkkt()){//Cumple con el KT
+                        if(t3.check_kt()){//Cumple con el KT?
                             
                             
-                            if (t3.checkt()) {//Cumple factor de seguridad
+                            if (t3.check_ecmax()) {//Cumple factor de seguridad?
                                 
                                 t3.setprecio();
                                 if (t3.getprecio()<price) {//Se selecciona el precio menor
@@ -226,29 +182,12 @@ public class Resorte {
         t3.setmaterial(m[mat]);
         t3.setfs();
         
-        /*
-        System.out.println("precio min t3: "+price);
-        System.out.println("Material t3: "+m[mat].getnombre());
-        System.out.println("G t3: "+m[mat].getG());
-        System.out.println("L t3: "+Lar);
-        System.out.println("D t3: "+Dia);
-        System.out.println("gr t3: "+gro);
-        System.out.println("Vol t3: "+vol);
-        System.out.println("giro: "+t3.getgiro()*180/Math.PI);
-        System.out.println("tys: "+t3.getmaterial().gettys());
-        System.out.println("cortante: "+t3.gettreq()/1.1);
-        System.out.println("cortante*fs: "+t3.gettreq());
-        System.out.println("FS: "+t3.getfs());
-        
-        
-        System.out.println("PRECIO MINIMO: "+(t1.getprecio()+t2.getprecio()+t3.getprecio()));*/
-        
         
         System.out.println("Tubo"+"\t"+"Material"+"\t"+"      Costo ($)"+"\t"+"            Fs"+"\t"+"              L (mm)"+"\t"+"R (mm)"+"\t"+"grosor(mm)"+"\t");
         System.out.println("1"+"\t"+t1.getmaterialnm()+" \t "+t1.getprecio()+"\t"+t1.getfs()+"\t"+t1.getlargo()+"\t"+t1.getdiametro()/2+"\t"+t1.getgrosor()+"\t");
         System.out.println("2"+"\t"+t2.getmaterialnm()+" \t "+t2.getprecio()+"\t"+t2.getfs()+"\t"+t2.getlargo()+"\t"+t2.getdiametro()/2+"\t"+t2.getgrosor()+"\t");
         System.out.println("3"+"\t"+t3.getmaterialnm()+" \t "+t3.getprecio()+"\t"+t3.getfs()+"\t"+t3.getlargo()+"\t"+t3.getdiametro()/2+"\t"+t3.getgrosor()+"\t");
-        
+        System.out.println("PRECIO MINIMO: "+(t1.getprecio()+t2.getprecio()+t3.getprecio()));
 
                 
     }
